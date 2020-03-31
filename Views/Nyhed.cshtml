@@ -1,0 +1,53 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Nyhed>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "_Master.cshtml";
+    var cultureinfo = new System.Globalization.CultureInfo("da-DA");
+}
+
+<h1 class="page-container h1banner">@Umbraco.Field("bannerHead", recursive: true)</h1>
+<div id="overlayImg">
+    <div class="header">
+        @{
+            var typedMediaPickerSingle = Model.Content.GetPropertyValue<IPublishedContent>
+            ("nImg");
+            if (typedMediaPickerSingle != null)
+            {
+                <!--<p>@typedMediaPickerSingle.Url</p>-->
+                <img src="@typedMediaPickerSingle.Url" alt="@typedMediaPickerSingle.GetPropertyValue(" alt")" />
+            }
+        }
+    </div>
+</div>
+
+<div class="page-container">
+    <div class="siteInfo">
+        @Html.Partial("Utilities/Breadcrumb")
+    </div>
+</div>
+
+<div class="single-act-container">
+    <div class="nyhed-sidebar wrapper">
+        <div class="nyhed-info">
+            <div class="nyhed-date">
+                <h2>@Model.Content.NDato.ToString("dddd", cultureinfo)</h2>
+                <p>@Model.Content.NDato.ToString("dd. MMM", cultureinfo)</p>
+            </div>
+            <ul>
+                <li><span>Forfatter &#8226</span> @Umbraco.Field("nForfatter")</li>
+                <li><span>Kilde &#8226</span> @Umbraco.Field("nKilde")</li>
+            </ul>
+        </div>
+        @if (Model.Content.ArticleLink.Length > 0)
+        {
+            <a href="@Model.Content.ArticleLink" target="_blank" class="perticipate-btn">Læs hele nyheden<i class="fas fa-arrow-right"></i></a>
+
+        }
+    </div>
+    <div class="info-wrapper wrapper">
+        <div class="info-text">
+            <h1 class="nyhed-header">@Umbraco.Field("nHead")</h1>
+            <p>@Umbraco.Field("nBody")</p>
+        </div>
+    </div>
+</div>

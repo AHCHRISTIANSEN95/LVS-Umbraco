@@ -1,0 +1,88 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Aktiviteter>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "_Master.cshtml";
+
+    var home = Umbraco.TypedContentAtRoot().OfType<Frontpage>().SingleOrDefault();
+    var Aktiviteter = Model.Content.Children<Aktivitet>();
+
+    var months = Aktiviteter
+        .Select(a => a.EventDateAndTime)
+        .Distinct();
+
+    var cultureinfo =
+        new System.Globalization.CultureInfo("da-DA");
+}
+
+<h1 class="page-container h1banner">@Umbraco.Field("bannerHead")</h1>
+<div id="overlayImg">
+    <div class="header">
+        @{
+            var typedMediaPickerSingle = Model.Content.GetPropertyValue<IPublishedContent>
+            ("banner");
+            if (typedMediaPickerSingle != null)
+            {
+                <!--<p>@typedMediaPickerSingle.Url</p>-->
+                <img src="@typedMediaPickerSingle.Url" alt="@typedMediaPickerSingle.GetPropertyValue(" alt")" />
+            }
+        }
+    </div>
+</div>
+
+<section class="activity-calender">
+    <div class="page-container">
+        <div class="siteInfo">
+            @Html.Partial("Utilities/Breadcrumb")
+        </div>
+        <div class="header-elements">
+            <div class="filter-view">
+                <span>Oversigt</span>
+                <i class="fas fa-list-ul" id="list-view"></i>
+                <i class="fas fa-th" id="grid-view"></i>
+            </div>
+        </div>
+
+        <div class="grid-view">
+            <div class="item-grid-wrapper is-space-between with-empty-cells">
+                @foreach (var m in months)
+                {
+
+                    <div class="month-bar">
+                        <p>Måned: @m.ToString("MMMM - yyyy", cultureinfo)</p>
+                    </div>
+
+                    var monthEvents = Aktiviteter.
+                    Where(a => a.EventDateAndTime == m);
+
+                    foreach (var me in monthEvents)
+                    {
+                        <div class="activity-grid-item wrapper vWrapper">
+                            <div class="overlay">
+                                <img class="activity-img" src="@me.EventTopImg.Url" alt="aktiviteter">
+                                <div class="activity-title overlay-wrapper">
+                                    <h3 class="activity-titlename">@me.EventHeadline</h3>
+                                    <span><i class="far fa-calendar-alt"></i>Dato: @me.EventDateAndTime.ToString("dd. MMM", cultureinfo)</span>
+                                    <h4 class="list-properties">@me.EventDateAndTime.ToString("dd. MMM", cultureinfo)<br />@me.EventDateAndTime.ToString("dddd", cultureinfo)</h4>
+                                </div>
+                            </div>
+                            <div class="grid-activity-content">
+                                <h3 class="activity-titlename">@me.EventHeadline</h3>
+                                <div class="activity-shortdescription">
+                                    <p>@me.EventInfoText</p>
+                                    <div class="activity-info">
+                                        <span class="activity-location"><i class="fas fa-map-marker-alt"></i>Lokation: @me.EventLocation</span>
+                                        <span class="activity-timestamp"><i class="far fa-clock"></i>Tidspunkt: @me.EventDateAndTime.ToString("HH:mm")</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="activity-hover" href="@me.Url">Læs mere <i class="fas fa-arrow-right"></i></a>
+                            <div class="activitylist-button">
+                                <a class="cta-button" href="@me.Url">Læs mere <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

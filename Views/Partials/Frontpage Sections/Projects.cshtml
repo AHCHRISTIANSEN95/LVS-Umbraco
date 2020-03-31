@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Frontpage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+
+<!-- Projects Section begins -->
+<section class="projects">
+    <div class="projects-container">
+        <div class="project-info">
+            <h2>@Umbraco.Field("projectHeadline")</h2>
+            <p>@Umbraco.Field("projectSubtext")</p>
+            <a class="cta-button" href="#">LÆS OM PROJEKTET <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="projects-wrapper">
+            @foreach(NumberFeatureBox n in Model.Content.ProjektTal)
+            {
+                <div class="count">
+                    <h4>@n.NumberHeadline</h4>
+                    <p>@n.BoxText</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

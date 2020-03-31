@@ -1,0 +1,51 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Medarbejdere>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "_Master.cshtml";
+    var home = Umbraco.TypedContentAtRoot().OfType<Frontpage>().SingleOrDefault();
+    var medarbejdere = Model.Content.Children<Medarbejder>();
+}
+
+<h1 class="page-container h1banner">@Umbraco.Field("bannerHead")</h1>
+<div id="overlayImg">
+    <div class="header">
+        @{
+            var typedMediaPickerSingle = Model.Content.GetPropertyValue<IPublishedContent>
+            ("banner");
+            if (typedMediaPickerSingle != null)
+            {
+                <!--<p>@typedMediaPickerSingle.Url</p>-->
+                <img src="@typedMediaPickerSingle.Url" alt="@typedMediaPickerSingle.GetPropertyValue(" alt")" />
+            }
+        }
+    </div>
+</div>
+<div class="page-container filter_info">
+    <div class="siteInfo">
+        @Html.Partial("Utilities/Breadcrumb")
+    </div>
+</div>
+<section>
+    <div class="grid">
+        <div class="employees-container page-container">
+            @foreach (var Medarbejder in medarbejdere)
+            {
+            <div class="employee-box wrapper vWrapper y5">
+                <div class="overlay-wrapper">
+                    <img src="@Medarbejder.Mimage.Url" alt="">
+                    <div class="text-overlay">
+                        <div class="employee-info">
+                            <h3>@Medarbejder.MName</h3>
+                            <p>@Medarbejder.MJobtitel</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="employee-body">
+                    @Medarbejder.MJobInfo
+                </div>
+                <a class="employee-btn" href="tel:@Medarbejder.MTelefon"><i class="fas fa-phone"></i> @Medarbejder.MTelefon</a>
+            </div>
+             }
+        </div>
+    </div>
+</section>

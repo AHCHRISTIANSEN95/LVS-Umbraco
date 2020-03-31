@@ -1,0 +1,77 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.OmOs>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "_Master.cshtml";
+}
+
+<h1 class="page-container h1banner">@Umbraco.Field("bannerHead")</h1>
+<div id="overlayImg">
+    <div class="header">
+        @{
+            var typedMediaPickerSingle = Model.Content.GetPropertyValue<IPublishedContent>
+            ("banner");
+            if (typedMediaPickerSingle != null)
+            {
+                <!--<p>@typedMediaPickerSingle.Url</p>-->
+                <img src="@typedMediaPickerSingle.Url" alt="@typedMediaPickerSingle.GetPropertyValue(" alt")" />
+            }
+        }
+    </div>
+</div>
+
+<section class="about-main">
+    <div class="about-main-container">
+        <h1>@Umbraco.Field("pageTitle")</h1>
+        <span>@Umbraco.Field("contentSubText")</span>
+        @Umbraco.Field("contentText")
+    </div>
+</section>
+<!-- CTA Section begins -->
+<section class="cards about-cards">
+    <div class="cards-container">
+        <div class="headline">
+            <h2>@Umbraco.Field("ctaAboutHeadline")</h2>
+        </div>
+        <div class="card-wrapper">
+            @foreach (CtaBox b in Model.Content.CtaAbout)
+            {
+                <div class="card-box wrapper y10">
+                    <a href="@b.BoxLink.Url"><img src="@b.BoxPicture.Url" alt=""></a>
+                    <div class="card-body">
+                        <h3>@b.Headline</h3>
+                        <p>@b.BoxText</p>
+                        <a href="@b.BoxLink.Url">Læs Mere <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<section class="system-view">
+    <div class="system-view-container">
+        <div class="system-text">
+            <h2>@Umbraco.Field("illustrationHeadline")</h2>
+            <p>@Umbraco.Field("illustrationText")</p>
+        </div>
+        <div class="system-illustration">
+            <div class="green-circle wrapper">
+                <div class="circle-inner">
+                    <h3>Misbrugsindsats</h3>
+                    <p>Kontrol, forebyggelse, behandling, skadesreduktion</p>
+                </div>
+            </div>
+            <div class="green-circle bigger-circle wrapper">
+                <div class="circle-inner">
+                    <h3>Væresteder</h3>
+                    <p>Bryde med social isolation, kontakt, ernæring, bad, tøjvask, samtale, samvær, fællesskab mm.</p>
+                </div>
+            </div>
+            <div class="green-circle wrapper">
+                <div class="circle-inner">
+                    <h3>Sociale &amp; Arbejds Markedsindsats</h3>
+                    <p>Aktivering, uddannelse, rådighed, odinær beskæftigelse</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

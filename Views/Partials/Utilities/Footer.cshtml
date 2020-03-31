@@ -1,0 +1,54 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var allpages = Model.Content.Site().Children();
+    var home = Umbraco.TypedContentAtRoot().OfType<Frontpage>().SingleOrDefault();
+}
+<footer class="site-footer">
+
+    <div class="footer-container">
+        <div id="footer-sidebar1" class="footer-column">
+            <h4>Landsforeningen af væresteder</h4>
+            <p>
+                LVS er værestedernes værested.
+                I LVS kan værestederne finde et fællesskab
+                og en fagligt funderet opbakning til at udvikle det,
+                de er bedst til: at hjælpe socialt udsatte mennesker
+                til et bedre liv.
+            </p>
+        </div>
+        <div id="footer-sidebar2" class="footer-column">
+            <h4>Oversigt</h4>
+            <ul>
+                <li><a href="/">Forside</a></li>
+                @foreach (var page in allpages)
+                {
+                    <li>
+                        <a href="@page.Url">@page.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div id="footer-sidebar3" class="footer-column">
+            <h4>Kontakt informationer</h4>
+            <ul>
+                <!--      <li>Landsforeningen af VæreSteder</li> -->
+                <li><a target="_blank" href="@home.GoogleMapsLink">Adresse: @home.Adresse</a></li>
+                <li><a href="tel:@home.Telefon">Telefon: @home.Telefon</a></li>
+                <li><a href="mailto:@home.Email">Mail: @home.Email</a></li>
+                <li>cvr.nr. @home.Cvr</li>
+            </ul>
+        </div>
+        <div id="footer-sidebar4" class="footer-column">
+            <h4>Følg os</h4>
+            <div class="social-links">
+                <a href="@home.Facebook"><i class="fab fa-facebook-square medium-icons"></i></a>
+                <a href="@home.Youtube"><i class="fab fa-youtube medium-icons"></i></a>
+                <a href="@home.Twitter"><i class="fab fa-twitter medium-icons"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="copyright-footer">
+    <p>Copyright &#169; 2018 Group 1 Inc. All rights reserved.</p>
+</div>

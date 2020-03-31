@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+<!-- About Section begins -->
+<section class="about">
+    <div class="about-container">
+        <div class="about-text-wrapper">
+            <h2>@Umbraco.Field("featureHeadline")</h2>
+            <p>@Umbraco.Field("featureSubtext")</p>
+            <a class="cta-button" href="@Umbraco.Field("featureLink")">LÆS HISTORIEN <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+    <picture class="about-img">
+        <source media="(min-width: 1200px)" srcset="../img/udsatte.png">
+        <source media="(min-width: 768px)" srcset="../img/udsatte.png">
+        <img src="../img/udsatte_mobile.png" alt="udsatte">
+    </picture>
+</section>

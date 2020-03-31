@@ -1,0 +1,25 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Frontpage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+
+<!-- CTA Section begins -->
+<section class="cards">
+    <div class="cards-container">
+        <div class="headline">
+            <h2>@Umbraco.Field("servicesHeadline")</h2>
+            <p>@Umbraco.Field("servicesSubtext")</p>
+        </div>
+        <div class="card-wrapper">
+            @foreach (CtaBox b in Model.Content.Services)
+            {
+            <div class="card-box wrapper y10">
+                <a href="@b.BoxLink.Url"><img src="@b.BoxPicture.Url" alt=""></a>
+                <div class="card-body">
+                    <h3>@b.Headline</h3>
+                    <p>@b.BoxText</p>
+                    <a href="@b.BoxLink.Url">Læs Mere <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>

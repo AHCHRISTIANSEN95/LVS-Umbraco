@@ -1,0 +1,25 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Frontpage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+
+
+<!-- Testimonials Section begins -->
+<section class="testimonials">
+    <div class="testimonials-container">
+        <div class="headline">
+            <h2>@Umbraco.Field("testimonialHeadline")</h2>
+            <p>@Umbraco.Field("testimonialSubtext")</p>
+        </div>
+        <div class="slider-wrapper">
+            @foreach (TestimonialBox box in Model.Content.Testimonials)
+            {
+                <div class="box-wrapper">
+                    <div class="speach-box wrapper">
+                        <p>@box.BoxText</p>
+                        <h4>@box.Headline</h4>
+                    </div>
+                    <img src="@box.BoxPicture.Url" alt="">
+                </div>
+            }
+        </div>
+    </div>
+</section>

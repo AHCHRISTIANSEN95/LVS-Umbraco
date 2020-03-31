@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{ 
+    var home = Umbraco.TypedContentAtRoot().OfType<Frontpage>().SingleOrDefault();
+}
+<!-- Newsletter Section begins -->
+<section class="newsletter">
+    <div class="newsletter-container">
+        <div class="headline">
+            <h2>Tilmeld Nyhedsbrev</h2>
+            <p>Tilmeld dig vores nyhedsbrev og, få de seneste nyheder samt informationer om alt for vores aktiviteter til lokale væresteder</p>
+        </div>
+        <form class="signup-form" action="">
+            <input class="newsletter-input" type="email" name="email" placeholder="Indtast din E-mail her *">
+            <input class="cta-button button-form" type="submit" value="TILMELD MIG">
+        </form>
+        <div class="social-links">
+            <a href="@home.Facebook"><i class="fab fa-facebook-square"></i></a>
+            <a href="@home.Youtube"><i class="fab fa-youtube"></i></a>
+            <a href="@home.Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</section>
